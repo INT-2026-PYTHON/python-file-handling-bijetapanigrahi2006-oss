@@ -40,3 +40,52 @@ Explanation:
 =================================================
 
 """
+def find_longest_words(file_path):
+    longest_words = []
+    max_length = 0
+    
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            for line in f:
+
+                word = line.strip()
+                if not word:
+                    continue
+                
+                word_len = len(word)
+                
+                if word_len > max_length:
+                    max_length = word_len
+                    longest_words = [word] 
+                    
+                elif word_len == max_length:
+                    longest_words.append(word)
+                    
+    except FileNotFoundError:
+        print(f"Error: The file at {file_path} was not found.")
+        return []
+        
+    print(f"Longest word length: {max_length}")
+    print("Longest words:")
+    print(longest_words)
+    
+    return longest_words
+
+
+# --- Simulation / Driver Code ---
+_name_ = " "
+if _name_ == "_main_":
+    
+    sample_filename = "sowpods.txt"
+    sample_data = [
+        "apple",
+        "banana",
+        "cherry",
+        "date",
+        "elderberry"
+    ]
+    
+    with open(sample_filename, "w", encoding="utf-8") as f:
+        f.write("\n".join(sample_data))
+        
+    find_longest_words(sample_filename)

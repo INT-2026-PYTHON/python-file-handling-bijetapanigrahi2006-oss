@@ -53,3 +53,47 @@ Sorted -> ['b', 'd', 'e', 'h', 'k', 'm', 'n',
 =================================================
 
 """
+def find_non_consecutive_letters(file_path):
+
+    seen_letters = set()
+    doubled_letters = set()
+    
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            for line in f:
+                
+                word = line.strip().lower()
+                if not word:
+                    continue
+                
+                for i, char in enumerate(word):
+                    if char.isalpha():
+                        seen_letters.add(char)
+                        
+                        if i < len(word) - 1 and word[i] == word[i + 1]:
+                            doubled_letters.add(char)
+                            
+    except FileNotFoundError:
+        print(f"Error: The file at {file_path} was not found.")
+        return []
+
+    
+    valid_letters = seen_letters - doubled_letters
+    
+    return sorted(list(valid_letters))
+
+
+# --- Simulation/Driver Code ---
+_name_ = " "
+if _name_ == "_main_":
+    
+    mock_filename = "sowpods.txt"
+    sample_words = ["aardvark", "hello", "buzz", "moon", "puppy"]
+    
+    with open(mock_filename, "w", encoding="utf-8") as f:
+        f.write("\n".join(sample_words))
+        
+    result = find_non_consecutive_letters(mock_filename)
+    
+    print("Letters that never appear back-to-back:")
+    print(result)

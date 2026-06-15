@@ -51,3 +51,32 @@ Explanation:
 =================================================
 
 """
+def find_vowel_heavy_words(file_path):
+    
+    target_vowels = {'a', 'e', 'i', 'o', 'u'}
+    all_vowel_words = []
+    
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            for line in f:
+                word = line.strip()
+                if not word:
+                    continue
+                
+            
+                word_chars = set(word.lower())
+                
+            
+                if target_vowels.issubset(word_chars):
+                    all_vowel_words.append(word)
+                    
+    except FileNotFoundError:
+        print(f"Error: The file at {file_path} was not found.")
+        return []
+        
+    print("Words containing all five vowels:")
+    print(all_vowel_words)
+    return all_vowel_words
+
+
+
