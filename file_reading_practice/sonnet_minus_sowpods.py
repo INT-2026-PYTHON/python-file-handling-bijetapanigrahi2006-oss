@@ -58,3 +58,42 @@ After sorting -> ['a', 'compare', 'i', 'to'].
 =================================================
 
 """
+def find_subsequence_words(file_path, target):
+    matching_words = []
+    
+    target_lower = target.lower()
+    target_len = len(target_lower)
+    
+    if target_len == 0:
+        return matching_words
+
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            for line in f:
+                word = line.strip()
+                if not word:
+                    continue
+                
+                word_lower = word.lower()
+                
+            
+                word_ptr = 0
+                target_ptr = 0
+                word_len = len(word_lower)
+                
+                while word_ptr < word_len and target_ptr < target_len:
+                    if word_lower[word_ptr] == target_lower[target_ptr]:
+                        target_ptr += 1
+                    word_ptr += 1 
+                
+                if target_ptr == target_len:
+                    matching_words.append(word)
+                    
+    except FileNotFoundError:
+        print(f"Error: The file at {file_path} was not found.")
+        return []
+
+    print(f"Words containing '{target}' in order:")
+    print(matching_words)
+    return matching_words
+
